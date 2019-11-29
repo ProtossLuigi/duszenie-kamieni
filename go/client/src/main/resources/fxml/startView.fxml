@@ -5,28 +5,38 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
-   <center>
-      <Pane prefHeight="900.0" prefWidth="1350.0" BorderPane.alignment="CENTER" />
-   </center>
+<BorderPane fx:controller="StartController" fx:id="layout" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <right>
-       <VBox alignment="CENTER" prefHeight="900.0" prefWidth="250.0" style="-fx-background-color: dimgray;" BorderPane.alignment="CENTER">
-           <Button mnemonicParsing="false" text="Button">
+       <VBox fx:id="sideMenu" alignment="CENTER" prefHeight="900.0" prefWidth="250.0" style="-fx-background-color: dimgray;" BorderPane.alignment="CENTER">
+           <Button fx:id="start" mnemonicParsing="false" onAction="#handleStart" prefHeight="30.0" prefWidth="110.0" text="Start" textAlignment="CENTER">
               <VBox.margin>
                   <Insets bottom="5.0" top="5.0" />
               </VBox.margin>
+            <font>
+               <Font size="14.0" />
+            </font>
            </Button>
-           <Button mnemonicParsing="false" text="Button">
+           <Button fx:id="confirm" mnemonicParsing="false" onAction="#handleConfirm" prefHeight="30.0" prefWidth="110.0" text="Confirm move" textAlignment="CENTER">
               <VBox.margin>
                   <Insets bottom="5.0" top="5.0" />
               </VBox.margin>
+            <font>
+               <Font size="14.0" />
+            </font>
            </Button>
-           <Button mnemonicParsing="false" text="Button">
+           <Button fx:id="reset" mnemonicParsing="false" onAction="#handleReset" prefHeight="30.0" prefWidth="110.0" text="Reset" textAlignment="CENTER">
               <VBox.margin>
                   <Insets bottom="5.0" top="5.0" />
               </VBox.margin>
+            <font>
+               <Font size="14.0" />
+            </font>
            </Button>
        </VBox>
    </right>
+   <left>
+      <Pane fx:id="board" prefHeight="900.0" prefWidth="1350.0" BorderPane.alignment="CENTER" />
+   </left>
 </BorderPane>
