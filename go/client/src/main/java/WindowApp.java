@@ -4,6 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -17,7 +18,7 @@ import java.util.List;
 public class WindowApp extends Application {
 
 
-    private Group tileGroup = new Group();
+    private Group pawnGroup = new Group();
     private Pawn[][] board;
 
 
@@ -31,9 +32,12 @@ public class WindowApp extends Application {
         //fxml musi być w resource/fxml bo maven jest niemądry
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/startView.fxml"));
 
-        Scene scene = new Scene(root);
+//        Scene scene = new Scene(root);
+        Scene scene = new Scene(makeMeBoard(9));
+
         stage.setTitle("Go");
         stage.setScene(scene);
+
         stage.show();
 
         ArrayList<String> args = new ArrayList<>(getParameters().getRaw());
@@ -53,29 +57,41 @@ public class WindowApp extends Application {
 
     }
 
+
     public Pane makeMeBoard(int scale) {
         Pane pane = new Pane();
 
-        pane.setPrefSize(10.0 * Pawn.PAWN_SIZE, 10.0 * Pawn.PAWN_SIZE);
+        pane.setPrefSize(6 * 10.0 * Pawn.PAWN_SIZE, 6 * 10.0 * Pawn.PAWN_SIZE);
         BoardCreation boardCreation = new BoardCreation(scale);
-        board=boardCreation.board;
-        makePiece(pane,scale,board);
+        board = boardCreation.board;
+        makePiece(pane, scale, board);
 
 
         return pane;
     }
 
-    private void makePiece(Pane pane, int scale, Pawn[][] board ) {
-        pane.setPrefSize(10.0 * Pawn.PAWN_SIZE, 10.0 * Pawn.PAWN_SIZE);
-        pane.getChildren().addAll(tileGroup);
+    private void makePiece(Pane pane, int scale, Pawn[][] board) {
+        pane.setPrefSize(8 * 10.0 * Pawn.PAWN_SIZE, 8 * 10.0 * Pawn.PAWN_SIZE);
+        pane.getChildren().addAll(pawnGroup);
         for (int i = 0; i < scale; i++) {
             for (int j = 0; j < scale; j++) {
-                Pawn pawn = new Pawn(PawnColors.BLACK, i, j);
+
+                Pawn pawn = new Pawn(PawnColors.NONE, i, j);
                 board[i][j] = pawn;
-                tileGroup.getChildren().add(pawn);
+                pawnGroup.getChildren().add(pawn);
+
             }
         }
+        for (Pawn[] p :board
+        ) {
+            for (Pawn pawn:p
+                 ) {
+                pawn.setOnMouseClicked(event -> {
+                    pawn.changeColor(pawn, Color.BLACK);
+                });
+            }
 
+        }
 
     }
 }

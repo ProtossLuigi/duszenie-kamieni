@@ -37,6 +37,6 @@
        </VBox>
    </right>
    <left>
-      <Pane fx:id="board" prefHeight="900.0" prefWidth="1350.0" BorderPane.alignment="CENTER" />
+      <Pane fx:id="board"  prefHeight="900.0" prefWidth="1350.0" BorderPane.alignment="CENTER" />
    </left>
 </BorderPane>

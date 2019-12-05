@@ -10,6 +10,11 @@ public class Pawn extends Circle {
 
     static final int PAWN_SIZE = 10;
 
+    //serwer musi podać klientowi kolor
+    public void changeColor (Pawn pawn,Color color){
+        pawn.setFill(color);
+    }
+
 
     PawnColors getType() {
         return type;
@@ -18,6 +23,11 @@ public class Pawn extends Circle {
     public Pawn(PawnColors type, int x, int y) {
         this.type = type;
         setRadius(PAWN_SIZE);
+        relocate(x*(2*PAWN_SIZE), y*(2*PAWN_SIZE));
+        setStrokeWidth(0.2*PAWN_SIZE);
+        setFill(Color.YELLOW);
+        setStroke(Color.YELLOW);
+
 
 
         switch (type) {
@@ -35,13 +45,7 @@ public class Pawn extends Circle {
 
         }
 
-        setOnMousePressed(event -> {
 
-            mouseX = event.getSceneX();
-            mouseY = event.getSceneY();
-            relocate(mouseX, mouseY);
-
-        });
 
 
     }
