@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import javax.xml.transform.sax.SAXResult;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,34 +16,42 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WindowApp extends Application {
+public class WindowApp  {
 
 
     private Group pawnGroup = new Group();
     private Pawn[][] board;
+static StartController startController;
 
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 
-    @Override
-    public void start(Stage stage) throws Exception {
+
+    public void start(String boardSize, String address) throws Exception {
 
         //fxml musi być w resource/fxml bo maven jest niemądry
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/startView.fxml"));
 
-//        Scene scene = new Scene(root);
-        Scene scene = new Scene(makeMeBoard(9));
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/startView.fxml"));
+
+
+        Parent root = fxmlLoader.load();
+
+         startController = (StartController) fxmlLoader.getController();
+        startController.setBoard(makeMeBoard(9));
+
+        Scene scene = new Scene(root);
+
+        //Scene scene = new Scene(makeMeBoard(9));
+        Stage stage = new Stage();
 
         stage.setTitle("Go");
         stage.setScene(scene);
 
         stage.show();
 
-        ArrayList<String> args = new ArrayList<>(getParameters().getRaw());
+
         try {
-            int port = Integer.parseInt(args.get(0));
+            int port = Integer.parseInt(address);
             System.out.println("Attempting to connect on port " + port);
             Socket socket = new Socket("localhost", port);
             System.out.println("Connected");
@@ -54,6 +63,8 @@ public class WindowApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
 
     }
 

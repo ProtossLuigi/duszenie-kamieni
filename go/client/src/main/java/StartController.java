@@ -18,6 +18,11 @@ public class StartController {
     @FXML
     private Pane board;
 
+    public void setBoard(Pane boardChild) {
+        board.getChildren().add(boardChild);
+
+    }
+
     @FXML
     protected void handleStart(ActionEvent event){
         Window owner = layout.getScene().getWindow();
