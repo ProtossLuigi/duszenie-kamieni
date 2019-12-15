@@ -22,4 +22,9 @@ public class SocketConnection implements ServerConnection {
     public boolean placeStone(int x, int y) {
         return false;
     }
+
+    @Override
+    public boolean pass() {
+        return false;
+    }
 }
