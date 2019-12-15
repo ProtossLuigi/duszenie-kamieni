@@ -23,6 +23,7 @@ public class Main {
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             out.println("Server says hello!");
             System.out.println(in.readLine());
+            //todo wstawic tutaj czy bot oraz jak wielka plansza
         }
         catch (IOException e) {
             e.printStackTrace();

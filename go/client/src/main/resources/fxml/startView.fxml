@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:controller="StartController" fx:id="layout" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="layout" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StartController">
    <right>
        <VBox fx:id="sideMenu" alignment="CENTER" prefHeight="900.0" prefWidth="250.0" style="-fx-background-color: dimgray;" BorderPane.alignment="CENTER">
            <Button fx:id="start" mnemonicParsing="false" onAction="#handleStart" prefHeight="30.0" prefWidth="110.0" text="Start" textAlignment="CENTER">
@@ -37,6 +37,6 @@
        </VBox>
    </right>
    <left>
-      <Pane fx:id="board" prefHeight="900.0" prefWidth="1350.0" BorderPane.alignment="CENTER" />
+      <Pane fx:id="board"  prefHeight="900.0" prefWidth="1350.0" BorderPane.alignment="CENTER" />
    </left>
 </BorderPane>
