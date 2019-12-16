@@ -1,4 +1,8 @@
 package communication;
 
-public interface ConnectedPlayer {
+import main.Player;
+
+public interface ConnectedPlayer extends Runnable, Player {
+
+
 }
