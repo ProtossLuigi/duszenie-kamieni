@@ -48,7 +48,7 @@ static StartController startController;
         stage.setScene(scene);
 
         stage.show();
-
+        System.out.println("asfasfa");
 
         try {
             int port = Integer.parseInt(address);

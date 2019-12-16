@@ -20,11 +20,13 @@ public class SocketConnection implements ServerConnection {
 
     @Override
     public boolean placeStone(int x, int y) {
+        //TODO
         return false;
     }
 
     @Override
     public boolean pass() {
+        //TODO
         return false;
     }
 }
