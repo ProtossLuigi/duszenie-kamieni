@@ -5,6 +5,11 @@ public class GameParameters {
     public boolean pvp;
     public int[] boardSize;
 
+    public GameParameters(boolean pvp,int[] boardSize) {
+        this.pvp = pvp;
+        this.boardSize = boardSize;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof GameParameters))

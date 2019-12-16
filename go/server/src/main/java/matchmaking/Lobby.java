@@ -1,6 +1,7 @@
 package matchmaking;
 
 import bot.DefaultBot;
+import communication.ConnectedPlayer;
 import main.GameParameters;
 import main.Player;
 import rules.Game;
@@ -25,11 +26,14 @@ public class Lobby {
                     players[0] = player;
                     players[1] = room.getPlayer();
                     rooms.remove(room);
+                    players[1].setWaitingRoom(null);
                     new Game(parameters,players);
                     return;
                 }
             }
-            rooms.add(new GameRoom(parameters,player));
+            GameRoom newRoom = new GameRoom(parameters,player);
+            rooms.add(newRoom);
+            player.setWaitingRoom(newRoom);
         }
     }
 

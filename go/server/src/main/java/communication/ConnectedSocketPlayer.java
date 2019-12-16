@@ -44,6 +44,7 @@ public class ConnectedSocketPlayer implements ConnectedPlayer {
         }
     }
 
+    @Override
     public void join(GameParameters parameters) {
         Lobby.newPlayer(this,parameters);
     }
@@ -67,5 +68,10 @@ public class ConnectedSocketPlayer implements ConnectedPlayer {
     @Override
     public void pawnPlaced(int x, int y, int color) {
         messageInterpreter.placePawn(x,y,color);
+    }
+
+    @Override
+    public void setWaitingRoom(GameRoom waitingRoom) {
+        this.waitingRoom = waitingRoom;
     }
 }
