@@ -32,4 +32,8 @@ public class Lobby {
             rooms.add(new GameRoom(parameters,player));
         }
     }
+
+    public static synchronized void removePlayer(GameRoom room){
+        rooms.remove(room);
+    }
 }

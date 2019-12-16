@@ -10,4 +10,8 @@ public class Game {
     public Game(GameParameters parameters, Player[] players){
         //TODO
     }
+
+    public void leave(Player player){
+        //TODO
+    }
 }
