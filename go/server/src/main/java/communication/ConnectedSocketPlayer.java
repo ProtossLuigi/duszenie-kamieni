@@ -74,4 +74,16 @@ public class ConnectedSocketPlayer implements ConnectedPlayer {
     public void setWaitingRoom(GameRoom waitingRoom) {
         this.waitingRoom = waitingRoom;
     }
+
+    public void setOut(PrintWriter out) {
+        this.out = out;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public void setMessageInterpreter(MessageInterpreter messageInterpreter) {
+        this.messageInterpreter = messageInterpreter;
+    }
 }

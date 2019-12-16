@@ -1,5 +1,6 @@
 package communication;
 
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -27,9 +28,13 @@ public class SocketConnection implements ClientConnection {
                 ConnectedPlayer newPlayer = new ConnectedSocketPlayer(newClient);
                 new Thread(newPlayer).start();
             }
-            catch (Exception e) {
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void setSocket(ServerSocket socket) {
+        this.socket = socket;
     }
 }
