@@ -6,7 +6,7 @@ import GUI.PawnColors;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
-public class BoardCreation implements GUIController {
+public class BoardCreation /*implements GUIController*/ {
 
 
     public Pawn[][] board;
@@ -21,7 +21,7 @@ public class BoardCreation implements GUIController {
     }
 
 
-    @Override
+    //@Override
     public void setSizeBoard(int width, int height) {
         setBoard(createBoard(width,height));
     }
