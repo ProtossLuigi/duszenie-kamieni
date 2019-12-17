@@ -8,10 +8,10 @@ public interface Player {
     void pawnPlaced(int x,int y,int color);
     void setWaitingRoom(GameRoom waitingRoom);
 
-    void setColor();
-    void setPointState();
+    void notifWin();
+
     void setScore();
-    PointState pointState = null;
+
 
 
 }

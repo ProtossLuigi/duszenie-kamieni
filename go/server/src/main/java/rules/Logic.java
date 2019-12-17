@@ -13,11 +13,7 @@ import java.util.ArrayList;
 public class Logic {
 
     GameState gameState;
-
-    public Logic() {
-
-
-    }
+    boolean PassBefore = false;
 
 
     Territory getTerritory(Point point, Territory territory) {
@@ -45,7 +41,7 @@ public class Logic {
                 }
             } else if (territory.owner != OwnerTerritory.NEUTRAL) {
 
-                if (territory.owner == OwnerTerritory.UNKNOWN) {
+                if (territory.owner == OwnerTerritory.EMPTY) {
                     territory.owner = OwnerTerritory.valueOf(nState.toString());
                 } else if (territory.owner != OwnerTerritory.valueOf(nState.toString())) {
                     territory.owner = OwnerTerritory.NEUTRAL;
@@ -54,7 +50,7 @@ public class Logic {
             }
         }
 
-        if (isRoot && territory.owner == OwnerTerritory.UNKNOWN) {
+        if (isRoot && territory.owner == OwnerTerritory.EMPTY) {
             territory.owner = OwnerTerritory.NEUTRAL;
         }
 
@@ -147,7 +143,7 @@ public class Logic {
     }
 
 
-    boolean isValidMove(Point point, Player player) {
+    boolean isValidMove(Point point) {
         if (gameState.getPointState(point) != PointState.EMPTY) {
             gameState.moveError = gameState.MoveError("OCCUPIED");
             return false;
@@ -155,7 +151,7 @@ public class Logic {
         boolean isValid = true;
         ArrayList<ArrayList<PointState>> backupBoard = gameState.getBoardCopy();
 
-        gameState.setPointState(point, player.pointState);
+        gameState.setPointState(point, gameState.getPlayerColor());
 
         ArrayList<Point> captures = getCapturedPoints(point);
 
@@ -173,29 +169,45 @@ public class Logic {
         return isValid;
     }
 
-    MoveResult move(int x, int y) {
+    MoveResult move(int x, int y, Player player) {
         Point point = new Point(x, y);
-        var player = gameState.current;
-        ArrayList<Point> capturedPoints;
 
-        gameState.moveError = "";
+        if (player == gameState.current) {
+            ArrayList<Point> capturedPoints;
 
-        if (!isValidMove(point, player)) {
+            gameState.moveError = "";
+
+            if (!isValidMove(point)) {
+                return null;
+            }
+            gameState.setPointState(point, gameState.getPlayerColor());
+
+            capturedPoints = getCapturedPoints(point);
+
+            for (Point p :
+                    capturedPoints) {
+                gameState.setPointState(p, PointState.EMPTY);
+            }
+            gameState.current = (player == gameState.playerBlack) ? gameState.playerWhite : gameState.playerBlack;
+
+
+            return new MoveResult(player, point, capturedPoints);
+        } else {
             return null;
         }
-        gameState.setPointState(point, player.pointState);
+    }
 
-        capturedPoints = getCapturedPoints(point);
+    void pressPass(Player player) {
 
-        for (Point p :
-                capturedPoints) {
-            gameState.setPointState(p, PointState.EMPTY);
 
-            gameState.current = (player == gameState.player1) ? gameState.player2 : gameState.player1;
+        if (PassBefore) {
+            setScores();
+        } else {
 
+            PassBefore = !PassBefore;
+
+            gameState.current = (player == gameState.playerBlack) ? gameState.playerWhite : gameState.playerBlack;
         }
-        return new MoveResult(player, point, capturedPoints);
-
     }
 
     ArrayList<ArrayList<PointState>> getMarkedBoard() {
@@ -220,8 +232,8 @@ public class Logic {
 
     void setScores() {
         ArrayList<ArrayList<PointState>> markedBoard = getMarkedBoard();
-        Player p1 = gameState.player1;
-        Player p2 = gameState.player2;
+        Player p1 = gameState.playerBlack;
+        Player p2 = gameState.playerWhite;
 
         p1.setScore(); /// TODO: 17.12.2019 setScore(0);
         p2.setScore(); /// Todo setScore(0)
@@ -230,17 +242,17 @@ public class Logic {
             for (int y = 0; y < gameState.boardHeight; y++) {
                 PointState pState = markedBoard.get(x).get(y);
 
-                if (pState == p1.pointState) {
+                if (pState == PointState.BLACK) {
                     p1.setScore(); /// todo p1.score ++
-                } else if (pState == p2.pointState) {
+                } else if (pState == PointState.WHITE) {
                     p2.setScore(); /// todo p2.score ++
                 }
             }
         }
     }
 
-    void newGame(int width, int height) {
-        gameState = GameState(width, height, new Player(), new Player(), null);
+    void newGame(int width, int height, Player player1, Player player2) {
+        gameState = new GameState(width, height, player1, player2, null);
     }
 
 

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GameState {
-    GameState(int boardWidth, int boardHeight, Player player1, Player player2, GameStatus status) {
+    public GameState(int boardWidth, int boardHeight, Player playerBlack, Player playerWhite, GameStatus status) {
         this.board = new ArrayList<>();
         this.boardHeight = boardHeight;
         this.boardWidth = boardWidth;
@@ -19,22 +19,31 @@ public class GameState {
                 board.get(i).set(j, PointState.EMPTY);
             }
         }
-        this.player1 = player1;
-        this.player2 = player2;
-        if (status==null){
-            status= GameStatus.ACTIVE;
+        this.playerBlack = playerBlack;
+        this.playerWhite = playerWhite;
+        if (status == null) {
+            status = GameStatus.ACTIVE;
         }
         this.status = status;
+
     }
 
     public int boardWidth;
     public int boardHeight;
     public ArrayList<ArrayList<PointState>> board;
-    public Player player1;
-    public Player player2;
+    public Player playerBlack;
+    public Player playerWhite;
     public Player current;
     public GameStatus status;
     public String moveError;
+
+    public PointState getPlayerColor() {
+        if (current == playerBlack) {
+            return PointState.BLACK;
+        } else
+            return PointState.WHITE;
+    }
+
 
     public PointState getPointState(Point point) {
         return board.get(point.getX()).get(point.getY());
@@ -80,9 +89,9 @@ public class GameState {
 
     }
 
-    public void setBoardCopy( ArrayList<ArrayList<PointState>> board) {
+    public void setBoardCopy(ArrayList<ArrayList<PointState>> board) {
         this.board.clear();
-        this.board=board;
+        this.board = board;
     }
 
 

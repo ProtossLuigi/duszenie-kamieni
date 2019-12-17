@@ -1,7 +1,7 @@
 package rules.territory;
 
 public enum OwnerTerritory {
-    UNKNOWN ,
+    EMPTY ,
     NEUTRAL,
     BLACK,
     WHITE
