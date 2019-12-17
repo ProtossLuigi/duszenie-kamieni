@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="layout" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StartController">
+<BorderPane fx:id="layout" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.StartController">
    <right>
        <VBox fx:id="sideMenu" alignment="CENTER" prefHeight="900.0" prefWidth="250.0" style="-fx-background-color: dimgray;" BorderPane.alignment="CENTER">
            <Button fx:id="start" mnemonicParsing="false" onAction="#handleStart" prefHeight="30.0" prefWidth="110.0" text="Start" textAlignment="CENTER">
