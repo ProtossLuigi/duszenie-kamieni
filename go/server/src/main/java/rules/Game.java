@@ -7,6 +7,7 @@ public class Game {
 
     private Player[] players;
 
+
     public Game(GameParameters parameters, Player[] players){
         //TODO
     }
