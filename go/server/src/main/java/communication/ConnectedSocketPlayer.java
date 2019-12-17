@@ -50,6 +50,13 @@ public class ConnectedSocketPlayer implements ConnectedPlayer {
     }
 
     @Override
+    public void attemptPlacePawn(int x, int y) {
+        if (game != null) {
+            game.placePawn(this,x,y);
+        }
+    }
+
+    @Override
     public void sendMessage(String message) {
         out.println(message);
     }
@@ -63,6 +70,13 @@ public class ConnectedSocketPlayer implements ConnectedPlayer {
             game.leave(this);
         }
         Thread.currentThread().interrupt();
+    }
+
+    @Override
+    public void pass() {
+        if (game != null) {
+            game.pass(this);
+        }
     }
 
     @Override

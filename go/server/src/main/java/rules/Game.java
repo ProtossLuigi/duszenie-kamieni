@@ -15,4 +15,12 @@ public class Game {
     public void leave(Player player){
         //TODO
     }
+
+    public void placePawn(Player player,int x,int y){
+
+    }
+
+    public void pass(Player player){
+
+    }
 }

@@ -1,8 +1,12 @@
 package communication;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class StringMessageInterpreter implements MessageInterpreter {
 
     private ConnectedPlayer player;
+    private Pattern pawnPattern = Pattern.compile("PAWN (\\d+) (\\d+)");
 
     public StringMessageInterpreter(ConnectedPlayer player){
         this.player = player;
@@ -10,7 +14,23 @@ public class StringMessageInterpreter implements MessageInterpreter {
 
     @Override
     public void getMessage(String message) {
-        //TODO
+        Matcher matcher;
+        matcher = pawnPattern.matcher(message);
+        if (matcher.find()) {
+            player.attemptPlacePawn(Integer.parseInt(matcher.group(1)),Integer.parseInt(matcher.group(2)));
+            return;
+        }
+        if (message.equals("PASS")) {
+            player.pass();
+        }
+        if (message.equals("DISCONNECT")) {
+            player.disconnect();
+        }
+    }
+
+    @Override
+    public void sendChatMessage(String message) {
+        player.sendMessage("MESSAGE " + message);
     }
 
     @Override

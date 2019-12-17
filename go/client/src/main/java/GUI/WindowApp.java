@@ -1,6 +1,5 @@
-import GUI.BoardCreation;
-import GUI.Pawn;
-import GUI.PawnColors;
+package GUI;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -8,12 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
 
 import static GUI.Pawn.PAWN_SIZE;
 
@@ -48,20 +41,6 @@ public class WindowApp {
 
         stage.show();
         System.out.println("asfasfa");
-
-        try {
-            int port = Integer.parseInt(address);
-            System.out.println("Attempting to connect on port " + port);
-            Socket socket = new Socket("localhost", port);
-            System.out.println("Connected");
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out.println("Client says hello!");
-            System.out.println(in.readLine());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
 
     }

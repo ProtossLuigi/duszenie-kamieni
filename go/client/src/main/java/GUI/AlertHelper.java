@@ -1,3 +1,5 @@
+package GUI;
+
 import javafx.scene.control.Alert;
 import javafx.stage.Window;
 
