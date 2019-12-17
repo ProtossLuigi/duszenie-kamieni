@@ -146,6 +146,7 @@ public class Logic {
     boolean isValidMove(Point point) {
         if (gameState.getPointState(point) != PointState.EMPTY) {
             gameState.moveError = gameState.MoveError("OCCUPIED");
+
             return false;
         }
         boolean isValid = true;
@@ -178,6 +179,7 @@ public class Logic {
             gameState.moveError = "";
 
             if (!isValidMove(point)) {
+                player.sendChatMessage(gameState.moveError);
                 return null;
             }
             gameState.setPointState(point, gameState.getPlayerColor());
@@ -188,7 +190,7 @@ public class Logic {
                     capturedPoints) {
                 gameState.setPointState(p, PointState.EMPTY);
             }
-            gameState.current = (player == gameState.playerBlack) ? gameState.playerWhite : gameState.playerBlack;
+            swapAndNotifyPlayers(player);
 
 
             return new MoveResult(player, point, capturedPoints);
@@ -201,12 +203,12 @@ public class Logic {
 
 
         if (PassBefore) {
-            setScores();
+            setScores(player);
         } else {
 
             PassBefore = !PassBefore;
 
-            gameState.current = (player == gameState.playerBlack) ? gameState.playerWhite : gameState.playerBlack;
+            swapAndNotifyPlayers(player);
         }
     }
 
@@ -229,23 +231,37 @@ public class Logic {
         return markedBoard;
     }
 
+    void swapAndNotifyPlayers(Player player) {
+        gameState.current = (player == gameState.playerBlack) ? gameState.playerWhite : gameState.playerBlack;
+        gameState.current.yourTurn();
+        player.opponentTurn();
+    }
 
-    void setScores() {
+    void setScores(Player player) {
         ArrayList<ArrayList<PointState>> markedBoard = getMarkedBoard();
-        Player p1 = gameState.playerBlack;
-        Player p2 = gameState.playerWhite;
+        int p1 = 0;
+        int p2 = 0;
 
-        p1.setScore(); /// TODO: 17.12.2019 setScore(0);
-        p2.setScore(); /// Todo setScore(0)
 
         for (int x = 0; x < gameState.boardWidth; x++) {
             for (int y = 0; y < gameState.boardHeight; y++) {
                 PointState pState = markedBoard.get(x).get(y);
 
                 if (pState == PointState.BLACK) {
-                    p1.setScore(); /// todo p1.score ++
+                    p1++;
                 } else if (pState == PointState.WHITE) {
-                    p2.setScore(); /// todo p2.score ++
+                    p2++;
+                }
+
+                player.setScore(); // todo p1 p2
+
+                if (p1 > p2) {
+                    gameState.playerBlack.notifWin();
+                    gameState.playerWhite.notifLoss();
+
+                } else {
+                    gameState.playerBlack.notifLoss();
+                    gameState.playerWhite.notifWin();
                 }
             }
         }
@@ -253,6 +269,7 @@ public class Logic {
 
     void newGame(int width, int height, Player player1, Player player2) {
         gameState = new GameState(width, height, player1, player2, null);
+        swapAndNotifyPlayers(player1);
     }
 
 
