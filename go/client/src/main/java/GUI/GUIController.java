@@ -1,6 +1,11 @@
 package GUI;
 
+import javafx.scene.paint.Color;
+
 public interface GUIController {
 
-    void makePiece();
+    void setSizeBoard(int width, int height);
+
+
+
 }

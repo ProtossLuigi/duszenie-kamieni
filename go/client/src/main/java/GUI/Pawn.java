@@ -1,19 +1,16 @@
+package GUI;
+
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class Pawn extends Circle {
 
-    private double mouseX, mouseY;
+public class Pawn extends Circle implements PieceController {
 
 
-    private PawnColors type;
+    PawnColors type;
 
-    static final int PAWN_SIZE = 10;
-
-    //serwer musi podać klientowi kolor
-    public void changeColor (Pawn pawn,Color color){
-        pawn.setFill(color);
-    }
+     public static int PAWN_SIZE;
 
 
     PawnColors getType() {
@@ -23,11 +20,10 @@ public class Pawn extends Circle {
     public Pawn(PawnColors type, int x, int y) {
         this.type = type;
         setRadius(PAWN_SIZE);
-        relocate(x*(2*PAWN_SIZE), y*(2*PAWN_SIZE));
-        setStrokeWidth(0.2*PAWN_SIZE);
+        relocate(x * (2 * PAWN_SIZE), y * (2 * PAWN_SIZE));
+        setStrokeWidth(0.2 * PAWN_SIZE);
         setFill(Color.YELLOW);
         setStroke(Color.YELLOW);
-
 
 
         switch (type) {
@@ -46,7 +42,19 @@ public class Pawn extends Circle {
         }
 
 
-
-
     }
+
+    @Override
+    public void setPieceRadius(int radius) {
+        PAWN_SIZE = radius;
+    }
+
+
+    @Override
+    public void drawPiece(Pawn pawn, Color color) {
+        pawn.setFill(color);
+    }
+
+
+
 }

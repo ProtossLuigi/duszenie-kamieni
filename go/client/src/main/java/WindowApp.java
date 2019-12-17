@@ -1,4 +1,6 @@
-import javafx.application.Application;
+import GUI.BoardCreation;
+import GUI.Pawn;
+import GUI.PawnColors;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -7,23 +9,20 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import javax.xml.transform.sax.SAXResult;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 
-public class WindowApp  {
+import static GUI.Pawn.PAWN_SIZE;
+
+public class WindowApp {
 
 
     private Group pawnGroup = new Group();
     private Pawn[][] board;
-static StartController startController;
-
-
+    static StartController startController;
 
 
     public void start(String boardSize, String address) throws Exception {
@@ -36,7 +35,7 @@ static StartController startController;
 
         Parent root = fxmlLoader.load();
 
-         startController = (StartController) fxmlLoader.getController();
+        startController = (StartController) fxmlLoader.getController();
         startController.setBoard(makeMeBoard(9));
 
         Scene scene = new Scene(root);
@@ -65,15 +64,16 @@ static StartController startController;
         }
 
 
-
     }
-
 
     public Pane makeMeBoard(int scale) {
         Pane pane = new Pane();
 
-        pane.setPrefSize(6 * 10.0 * Pawn.PAWN_SIZE, 6 * 10.0 * Pawn.PAWN_SIZE);
-        BoardCreation boardCreation = new BoardCreation(scale);
+        pane.setPrefSize(6 * 10.0 * PAWN_SIZE, 6 * 10.0 * PAWN_SIZE);
+        BoardCreation boardCreation = new BoardCreation();
+        boardCreation.setSizeBoard(scale,scale);
+
+
         board = boardCreation.board;
         makePiece(pane, scale, board);
 
@@ -81,8 +81,9 @@ static StartController startController;
         return pane;
     }
 
+
     private void makePiece(Pane pane, int scale, Pawn[][] board) {
-        pane.setPrefSize(8 * 10.0 * Pawn.PAWN_SIZE, 8 * 10.0 * Pawn.PAWN_SIZE);
+        pane.setPrefSize(8 * 10.0 * PAWN_SIZE, 8 * 10.0 * PAWN_SIZE);
         pane.getChildren().addAll(pawnGroup);
         for (int i = 0; i < scale; i++) {
             for (int j = 0; j < scale; j++) {
@@ -93,16 +94,20 @@ static StartController startController;
 
             }
         }
-        for (Pawn[] p :board
+        for (Pawn[] p : board
         ) {
-            for (Pawn pawn:p
-                 ) {
+            for (Pawn pawn : p
+            ) {
                 pawn.setOnMouseClicked(event -> {
-                    pawn.changeColor(pawn, Color.BLACK);
+
+                    //todo zamiast kolor funkcja który gracz teraz ma ruch
+                    pawn.drawPiece(pawn, Color.BLACK);
                 });
             }
 
         }
 
     }
+
+
 }
