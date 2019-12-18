@@ -111,7 +111,7 @@ public class SocketConnection implements ServerConnection {
 
     @Override
     public void lfg(boolean pvp, int boardWidth, int boardHeight) {
-        guiController.waitingForOpponent(pvp);
+        guiController.waitingForOpponent();
         messageInterpreter.lfg(pvp, boardWidth, boardHeight);
     }
 

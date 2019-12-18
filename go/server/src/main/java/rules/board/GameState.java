@@ -13,10 +13,9 @@ public class GameState {
         this.boardHeight = boardHeight;
         this.boardWidth = boardWidth;
         for (int i = 0; i < boardHeight; i++) {
-            ArrayList<PointState> temp = new ArrayList<>();
-            board.set(i, temp);
+            board.add(new ArrayList<>());
             for (int j = 0; j < boardWidth; j++) {
-                board.get(i).set(j, PointState.EMPTY);
+                board.get(i).add(PointState.EMPTY);
             }
         }
         this.playerBlack = playerBlack;

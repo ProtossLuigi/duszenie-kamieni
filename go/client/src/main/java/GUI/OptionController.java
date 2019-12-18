@@ -37,9 +37,6 @@ public class OptionController implements WindowController {
             default:
                 throw new IllegalStateException();
         }
-
-        waitingForOpponent();
-
     }
 
     @Override
