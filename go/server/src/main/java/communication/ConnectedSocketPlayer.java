@@ -80,7 +80,7 @@ public class ConnectedSocketPlayer implements ConnectedPlayer {
     }
 
     @Override
-    public void startGame() {
+    public void startGame(int width,int height,int color) {
         messageInterpreter.startGame();
     }
 
