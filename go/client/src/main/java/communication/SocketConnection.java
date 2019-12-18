@@ -43,6 +43,7 @@ public class SocketConnection implements ServerConnection {
             socket = new Socket("localhost",destination);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream());
+            new Thread(this).start();
             return true;
         }
         catch (IOException e) {

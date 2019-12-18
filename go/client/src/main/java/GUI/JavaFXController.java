@@ -68,7 +68,6 @@ public class JavaFXController implements GUIController {
     @Override
     public void findGame(int serverPort, boolean pvp, int boardWidth, int boardHeight) {
         if (serverConnection.connect(serverPort)) {
-
             serverConnection.lfg(pvp, boardWidth, boardHeight);
         } else {
             //TODO: powiadom gracza że nie można połączyć się z serwerem
