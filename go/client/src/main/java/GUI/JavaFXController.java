@@ -61,15 +61,15 @@ public class JavaFXController implements GUIController {
     }
 
     @Override
-    public void waitingForOpponent(boolean pvp) {
-        currentWindowController.waitingForOpponent(pvp);
+    public void waitingForOpponent() {
+        currentWindowController.waitingForOpponent();
     }
 
     @Override
     public void findGame(int serverPort, boolean pvp, int boardWidth, int boardHeight) {
         if (serverConnection.connect(serverPort)) {
             serverConnection.lfg(pvp, boardWidth, boardHeight);
-            waitingForOpponent(pvp);
+            waitingForOpponent();
         } else {
             //TODO: powiadom gracza że nie można połączyć się z serwerem
         }

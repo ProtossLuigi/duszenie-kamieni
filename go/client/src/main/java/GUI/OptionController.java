@@ -38,7 +38,7 @@ public class OptionController implements WindowController {
                 throw new IllegalStateException();
         }
 
-        waitingForOpponent(pvp);
+        waitingForOpponent();
 
     }
 
@@ -83,7 +83,7 @@ public class OptionController implements WindowController {
     }
 
     @Override
-    public void waitingForOpponent(boolean pvp) {
+    public void waitingForOpponent() {
         //todo zmiana z okienka opcji na gre (tryb oczekiwania
 
         Stage owner = (Stage) board9.getScene().getWindow();
@@ -92,7 +92,7 @@ public class OptionController implements WindowController {
 
         WindowApp windowApp = new WindowApp();
         try {
-            windowApp.start(pvp, mainController);
+            windowApp.start(true, mainController);
         } catch (Exception e) {
             e.printStackTrace();
         }

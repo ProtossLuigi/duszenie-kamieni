@@ -9,5 +9,5 @@ public interface WindowController {
     void youLose();
     void displayMessage(String message);
     void startGame();
-    void waitingForOpponent(boolean pvp );
+    void waitingForOpponent();
 }
