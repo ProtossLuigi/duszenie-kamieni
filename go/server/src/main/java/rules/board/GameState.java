@@ -21,6 +21,8 @@ public class GameState {
         }
         this.playerBlack = playerBlack;
         this.playerWhite = playerWhite;
+        playerBlack.startGame(boardWidth,boardHeight,1);
+        playerWhite.startGame(boardWidth,boardHeight,2);
         if (status == null) {
             status = GameStatus.ACTIVE;
         }

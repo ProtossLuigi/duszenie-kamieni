@@ -8,7 +8,5 @@ public interface ConnectedPlayer extends Runnable, Player {
 
     void sendMessage(String message);
     void join(GameParameters parameters);
-    void attemptPlacePawn(int x,int y);
     void disconnect();
-    void pass();
 }
