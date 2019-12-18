@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Territory {
     public Territory(ArrayList<Point> points, OwnerTerritory owner) {
         this.points = Objects.requireNonNullElseGet(points, ArrayList::new);
-        this.owner = Objects.requireNonNullElse(owner, OwnerTerritory.UNKNOWN);
+        this.owner = Objects.requireNonNullElse(owner, OwnerTerritory.EMPTY);
     }
 
     public ArrayList<Point> points;

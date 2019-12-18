@@ -253,7 +253,7 @@ public class Logic {
                     p2++;
                 }
 
-                player.setScore(); // todo p1 p2
+                player.setScore(0,0); // todo p1 p2
 
                 if (p1 > p2) {
                     gameState.playerBlack.notifWin();

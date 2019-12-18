@@ -16,4 +16,6 @@ public interface Player {
     void sendChatMessage(String line);
     void yourTurn();
     void opponentTurn();
+    void startGame();
+    void waiting();
 }
