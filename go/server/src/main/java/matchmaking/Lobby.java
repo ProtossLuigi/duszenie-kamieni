@@ -34,6 +34,7 @@ public class Lobby {
             GameRoom newRoom = new GameRoom(parameters,player);
             rooms.add(newRoom);
             player.setWaitingRoom(newRoom);
+            player.waiting();
         }
     }
 
