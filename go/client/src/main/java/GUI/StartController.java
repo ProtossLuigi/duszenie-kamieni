@@ -8,7 +8,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Window;
 
-public class StartController {
+public class StartController implements WindowController {
     @FXML
     private BorderPane layout;
     @FXML
@@ -19,6 +19,8 @@ public class StartController {
     private Button reset;
     @FXML
     private Pane board;
+
+    private JavaFXController mainController;
 
     public void setBoard(Pane boardChild) {
         board.getChildren().add(boardChild);
@@ -41,5 +43,50 @@ public class StartController {
     protected void handleReset(ActionEvent event){
         Window owner = layout.getScene().getWindow();
         AlertHelper.showAlert(Alert.AlertType.INFORMATION,owner,"Reset","Reset was clicked");
+    }
+
+    @Override
+    public void setJavaFXController(JavaFXController controller) {
+        mainController = controller;
+    }
+
+    @Override
+    public void placePawn(int x, int y, int color) {
+
+    }
+
+    @Override
+    public void yourTurn() {
+
+    }
+
+    @Override
+    public void opponentTurn() {
+
+    }
+
+    @Override
+    public void youWin() {
+
+    }
+
+    @Override
+    public void youLose() {
+
+    }
+
+    @Override
+    public void displayMessage(String message) {
+
+    }
+
+    @Override
+    public void startGame() {
+
+    }
+
+    @Override
+    public void waitingForOpponent() {
+
     }
 }

@@ -4,11 +4,15 @@ import communication.ServerConnection;
 
 public class JavaFXController implements GUIController {
 
-    ServerConnection serverConnection = null;
+    private ServerConnection serverConnection = null;
+    private WindowController currentWindowController = null;
+
+    private BoardCreation boardCreation;
 
     @Override
     public void setSizeBoard(int width, int height) {
-        //TODO
+        boardCreation = new BoardCreation();
+        boardCreation.setSizeBoard(width, height);
     }
 
     @Override
@@ -18,47 +22,47 @@ public class JavaFXController implements GUIController {
 
     @Override
     public void showWindow() {
-        OptionStart.main(null);
+        OptionStart.startWindow(this);
     }
 
     @Override
     public void placePawn(int x, int y, int color) {
-        //TODO
+        currentWindowController.placePawn(x, y, color);
     }
 
     @Override
     public void yourTurn() {
-        //TODO
+        currentWindowController.yourTurn();
     }
 
     @Override
     public void opponentTurn() {
-        //TODO
+        currentWindowController.opponentTurn();
     }
 
     @Override
     public void youWin() {
-        //TODO
+        currentWindowController.youWin();
     }
 
     @Override
     public void youLose() {
-        //TODO
+        currentWindowController.youLose();
     }
 
     @Override
     public void displayMessage(String message) {
-        //TODO
+        currentWindowController.displayMessage(message);
     }
 
     @Override
     public void startGame() {
-        //TODO
+        currentWindowController.startGame();
     }
 
     @Override
     public void waitingForOpponent() {
-        //TODO
+        currentWindowController.waitingForOpponent();
     }
 
     @Override
@@ -85,5 +89,9 @@ public class JavaFXController implements GUIController {
     @Override
     public void disconnect() {
         serverConnection.disconnect();
+    }
+
+    public void setCurrentWindowController(WindowController currentWindowController) {
+        this.currentWindowController = currentWindowController;
     }
 }

@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 public class BoardCreation /*implements GUIController*/ {
 
 
-    public Pawn[][] board;
+    private Pawn[][] board;
 
 
     private void setBoard(Pawn[][] board) {
@@ -26,8 +26,7 @@ public class BoardCreation /*implements GUIController*/ {
         setBoard(createBoard(width,height));
     }
 
-
-
-
-
+    public Pawn[][] getBoard() {
+        return board;
+    }
 }

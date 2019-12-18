@@ -40,7 +40,6 @@ public class WindowApp {
         stage.setScene(scene);
 
         stage.show();
-        System.out.println("asfasfa");
 
 
     }
@@ -53,7 +52,7 @@ public class WindowApp {
         boardCreation.setSizeBoard(scale,scale);
 
 
-        board = boardCreation.board;
+        board = boardCreation.getBoard();
         makePiece(pane, scale, board);
 
 
