@@ -4,6 +4,7 @@ import communication.ServerConnection;
 
 public interface GUIController {
 
+    // methods invoked outside GUI
     void setSizeBoard(int width, int height);
     void setServerConnection(ServerConnection serverConnection);
     void showWindow();
@@ -15,4 +16,10 @@ public interface GUIController {
     void displayMessage(String message);
     void startGame();
     void waitingForOpponent();
+
+    // methods invoked inside GUI
+    void findGame(int serverPort,boolean pvp,int boardWidth,int boardHeight);
+    void attemptSetPawn(int x,int y);
+    void pass();
+    void disconnect();
 }

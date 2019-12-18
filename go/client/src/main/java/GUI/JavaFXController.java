@@ -60,4 +60,24 @@ public class JavaFXController implements GUIController {
     public void waitingForOpponent() {
         //TODO
     }
+
+    @Override
+    public void findGame(int serverPort, boolean pvp, int boardWidth, int boardHeight) {
+
+    }
+
+    @Override
+    public void attemptSetPawn(int x, int y) {
+
+    }
+
+    @Override
+    public void pass() {
+
+    }
+
+    @Override
+    public void disconnect() {
+
+    }
 }
