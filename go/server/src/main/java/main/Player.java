@@ -10,7 +10,7 @@ public interface Player {
 
     void notifWin();
 
-    void setScore();
+    void setScore(int yourScore,int opponentScore);
 
     void notifLoss();
     void sendChatMessage(String line);

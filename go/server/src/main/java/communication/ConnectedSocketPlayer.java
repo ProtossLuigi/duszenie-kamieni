@@ -89,6 +89,36 @@ public class ConnectedSocketPlayer implements ConnectedPlayer {
         this.waitingRoom = waitingRoom;
     }
 
+    @Override
+    public void notifWin() {
+        messageInterpreter.win();
+    }
+
+    @Override
+    public void setScore(int yourScore, int opponentScore) {
+
+    }
+
+    @Override
+    public void notifLoss() {
+        messageInterpreter.lose();
+    }
+
+    @Override
+    public void sendChatMessage(String line) {
+        messageInterpreter.sendChatMessage(line);
+    }
+
+    @Override
+    public void yourTurn() {
+        messageInterpreter.yourTurn();
+    }
+
+    @Override
+    public void opponentTurn() {
+        messageInterpreter.opponentTurn();
+    }
+
     public void setOut(PrintWriter out) {
         this.out = out;
     }
