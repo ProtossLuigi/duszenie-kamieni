@@ -10,7 +10,7 @@ public class Pawn extends Circle implements PieceController {
 
     PawnColors type;
 
-     public static int PAWN_SIZE;
+     public static int PAWN_SIZE =10;
 
 
     PawnColors getType() {

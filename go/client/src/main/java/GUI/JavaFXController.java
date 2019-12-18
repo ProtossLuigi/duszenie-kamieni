@@ -7,7 +7,7 @@ public class JavaFXController implements GUIController {
     private ServerConnection serverConnection = null;
     private WindowController currentWindowController = null;
 
-    private BoardCreation boardCreation;
+    public BoardCreation boardCreation;
 
     @Override
     public void setSizeBoard(int width, int height) {
@@ -61,24 +61,23 @@ public class JavaFXController implements GUIController {
     }
 
     @Override
-    public void waitingForOpponent() {
-        currentWindowController.waitingForOpponent();
+    public void waitingForOpponent(boolean pvp) {
+        currentWindowController.waitingForOpponent(pvp);
     }
 
     @Override
     public void findGame(int serverPort, boolean pvp, int boardWidth, int boardHeight) {
         if (serverConnection.connect(serverPort)) {
             serverConnection.lfg(pvp, boardWidth, boardHeight);
-            waitingForOpponent();
-        }
-        else {
+            waitingForOpponent(pvp);
+        } else {
             //TODO: powiadom gracza że nie można połączyć się z serwerem
         }
     }
 
     @Override
     public void attemptSetPawn(int x, int y) {
-        serverConnection.placeStone(x,y);
+        serverConnection.placeStone(x, y);
     }
 
     @Override

@@ -15,7 +15,7 @@ public interface GUIController {
     void youLose();
     void displayMessage(String message);
     void startGame();
-    void waitingForOpponent();
+    void waitingForOpponent(boolean pvp);
 
     // methods invoked inside GUI
     void findGame(int serverPort,boolean pvp,int boardWidth,int boardHeight);

@@ -1,5 +1,7 @@
 package GUI;
 
+import GUI.JavaFXController;
+import GUI.WindowController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

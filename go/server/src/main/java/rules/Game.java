@@ -23,7 +23,11 @@ public class Game {
 
     public void leave(Player player) {
         Player temp = (player == logic.gameState.playerBlack) ? logic.gameState.playerWhite : logic.gameState.playerBlack;
-        temp.setScore(0,0);
+        temp.setScore(0, 0);
+
+        temp.notifWin();
+
+
     }
 
     public void placePawn(Player player, int x, int y) {

@@ -18,7 +18,7 @@ public class WindowApp {
     static StartController startController;
 
 
-    public void start(String boardSize, String address) throws Exception {
+    public void start(boolean pvp, JavaFXController mainController) throws Exception {
 
         //fxml musi być w resource/fxml bo maven jest niemądry
 
@@ -28,18 +28,18 @@ public class WindowApp {
 
         Parent root = fxmlLoader.load();
 
-        startController = (StartController) fxmlLoader.getController();
-        startController.setBoard(makeMeBoard(9));
-
-        Scene scene = new Scene(root);
-
-        //Scene scene = new Scene(makeMeBoard(9));
         Stage stage = new Stage();
 
+
+        WindowController startController = fxmlLoader.getController();
+        startController.setJavaFXController(mainController);
+        mainController.setCurrentWindowController(startController);
+        Scene scene = new Scene(root);
         stage.setTitle("Go");
         stage.setScene(scene);
-
         stage.show();
+
+        mainController.waitingForOpponent(pvp);
 
 
     }
@@ -49,7 +49,7 @@ public class WindowApp {
 
         pane.setPrefSize(6 * 10.0 * PAWN_SIZE, 6 * 10.0 * PAWN_SIZE);
         BoardCreation boardCreation = new BoardCreation();
-        boardCreation.setSizeBoard(scale,scale);
+        boardCreation.setSizeBoard(scale, scale);
 
 
         board = boardCreation.getBoard();
