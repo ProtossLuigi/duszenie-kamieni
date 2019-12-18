@@ -23,20 +23,27 @@ public class OptionController implements WindowController {
         afterPressBotOrPlayerButton(false);
     }
 
-    private void afterPressBotOrPlayerButton(boolean pvp) throws Exception {
+    private void afterPressBotOrPlayerButton(boolean pvp) {
+        int temp;
         switch (((RadioButton) group.getSelectedToggle()).getId()) {
             case "board9":
-                mainController.setSizeBoard(9, 9);
+                temp=9;
+                mainController.setSizeBoard(temp, temp);
                 break;
             case "board13":
-                mainController.setSizeBoard(13, 13);
+                temp = 13;
+                mainController.setSizeBoard(temp, temp);
                 break;
             case "board19":
-                mainController.setSizeBoard(19, 19);
+                temp=19;
+                mainController.setSizeBoard(temp, temp);
                 break;
             default:
                 throw new IllegalStateException();
+
+
         }
+        mainController.findGame(Integer.parseInt(fieldAddress.getText()),pvp,temp,temp);
     }
 
     @Override
