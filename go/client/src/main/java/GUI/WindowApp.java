@@ -39,7 +39,7 @@ public class WindowApp {
         stage.setScene(scene);
         stage.show();
 
-        mainController.waitingForOpponent(pvp);
+        mainController.waitingForOpponent();
 
 
     }

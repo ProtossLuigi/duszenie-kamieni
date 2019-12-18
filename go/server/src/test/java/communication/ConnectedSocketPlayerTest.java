@@ -1,6 +1,7 @@
 package communication;
 
 import main.GameParameters;
+import main.Player;
 import matchmaking.GameRoom;
 import org.junit.After;
 import org.junit.Before;
@@ -25,6 +26,8 @@ public class ConnectedSocketPlayerTest {
     @Before
     public void setUp() throws Exception {
         mockSocket = mock(Socket.class);
+        when(mockSocket.getInputStream()).thenReturn(mock(InputStream.class));
+        when(mockSocket.getOutputStream()).thenReturn(mock(OutputStream.class));
         player = new ConnectedSocketPlayer(mockSocket);
     }
 
@@ -42,7 +45,7 @@ public class ConnectedSocketPlayerTest {
     }
 
     @Test
-    public void join() {
+    public void join() throws IOException {
         player.join(new GameParameters(true,new int[]{9,9}));
     }
 

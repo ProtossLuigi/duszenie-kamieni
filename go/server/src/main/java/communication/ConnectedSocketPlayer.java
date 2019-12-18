@@ -24,13 +24,16 @@ public class ConnectedSocketPlayer implements ConnectedPlayer {
     public ConnectedSocketPlayer(Socket socket){
         this.socket = socket;
         messageInterpreter = new StringMessageInterpreter(this);
+        try {
+            out = new PrintWriter(socket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        }
+        catch (IOException ignore) { }
     }
 
     @Override
     public void run() {
         try {
-            out = new PrintWriter(socket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String message;
             while (!Thread.currentThread().isInterrupted() && (message = in.readLine()) != null) {
                 messageInterpreter.getMessage(message);
