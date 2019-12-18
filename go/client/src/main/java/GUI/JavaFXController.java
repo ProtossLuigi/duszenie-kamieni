@@ -92,4 +92,6 @@ public class JavaFXController implements GUIController {
     public void setCurrentWindowController(WindowController currentWindowController) {
         this.currentWindowController = currentWindowController;
     }
+
+    
 }

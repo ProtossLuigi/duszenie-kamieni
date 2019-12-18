@@ -29,4 +29,6 @@ public class BoardCreation /*implements GUIController*/ {
     public Pawn[][] getBoard() {
         return board;
     }
+
+
 }

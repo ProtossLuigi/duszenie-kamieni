@@ -21,14 +21,14 @@ public class ConnectedSocketPlayer implements ConnectedPlayer {
     private GameRoom waitingRoom = null;
     private Game game = null;
 
-    public ConnectedSocketPlayer(Socket socket){
+    public ConnectedSocketPlayer(Socket socket) {
         this.socket = socket;
         messageInterpreter = new StringMessageInterpreter(this);
         try {
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        } catch (IOException ignore) {
         }
-        catch (IOException ignore) { }
     }
 
     @Override
@@ -38,8 +38,7 @@ public class ConnectedSocketPlayer implements ConnectedPlayer {
             while (!Thread.currentThread().isInterrupted() && (message = in.readLine()) != null) {
                 messageInterpreter.getMessage(message);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         if (!Thread.currentThread().isInterrupted()) {
@@ -49,18 +48,20 @@ public class ConnectedSocketPlayer implements ConnectedPlayer {
 
     @Override
     public void join(GameParameters parameters) {
-        Lobby.newPlayer(this,parameters);
+        Lobby.newPlayer(this, parameters);
     }
 
     @Override
     public void attemptPlacePawn(int x, int y) {
         if (game != null) {
-            game.placePawn(this,x,y);
+            game.placePawn(this, x, y);
         }
     }
 
     @Override
     public void sendMessage(String message) {
+
+        System.out.println(message);
         out.println(message);
     }
 
@@ -83,7 +84,7 @@ public class ConnectedSocketPlayer implements ConnectedPlayer {
     }
 
     @Override
-    public void startGame(int width,int height,int color) {
+    public void startGame(int width, int height, int color) {
         messageInterpreter.startGame();
     }
 
@@ -94,7 +95,7 @@ public class ConnectedSocketPlayer implements ConnectedPlayer {
 
     @Override
     public void pawnPlaced(int x, int y, int color) {
-        messageInterpreter.placePawn(x,y,color);
+        messageInterpreter.placePawn(x, y, color);
     }
 
     @Override

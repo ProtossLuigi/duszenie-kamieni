@@ -10,7 +10,7 @@ public class Pawn extends Circle implements PieceController {
 
     PawnColors type;
 
-     public static int PAWN_SIZE =10;
+    public static int PAWN_SIZE = 40;
 
 
     PawnColors getType() {
@@ -25,7 +25,12 @@ public class Pawn extends Circle implements PieceController {
         setFill(Color.YELLOW);
         setStroke(Color.YELLOW);
 
+        setColor(this, type);
 
+
+    }
+
+    public void setColor(Pawn pawn, PawnColors type) {
         switch (type) {
 
             case NONE:
@@ -33,16 +38,15 @@ public class Pawn extends Circle implements PieceController {
                 break;
 
             case BLACK:
-                setFill(Color.BLACK);
+                pawn.setFill(Color.BLACK);
                 break;
             case WHITE:
-                setFill(Color.WHITE);
+                pawn.setFill(Color.WHITE);
                 break;
 
         }
-
-
     }
+
 
     @Override
     public void setPieceRadius(int radius) {
@@ -54,7 +58,6 @@ public class Pawn extends Circle implements PieceController {
     public void drawPiece(Pawn pawn, Color color) {
         pawn.setFill(color);
     }
-
 
 
 }

@@ -1,5 +1,7 @@
 package GUI;
 
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -7,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import static GUI.Pawn.PAWN_SIZE;
 
@@ -35,8 +38,21 @@ public class WindowApp {
         startController.setJavaFXController(mainController);
         mainController.setCurrentWindowController(startController);
         Scene scene = new Scene(root);
-        stage.setTitle("Go");
+        stage.setTitle("XD");
         stage.setScene(scene);
+
+
+
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent t) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
+
+
+
         stage.show();
 
         mainController.waitingForOpponent();

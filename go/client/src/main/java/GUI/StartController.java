@@ -2,12 +2,16 @@ package GUI;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Window;
+
+import static GUI.Pawn.PAWN_SIZE;
 
 public class StartController implements WindowController {
     @FXML
@@ -56,6 +60,11 @@ public class StartController implements WindowController {
     @Override
     public void placePawn(int x, int y, int color) {
 
+        Pawn[][] board = mainController.boardCreation.getBoard();
+
+        board[x][y].setColor(board[x][y], PawnColors.fromInt(color));
+
+
     }
 
     @Override
@@ -90,11 +99,40 @@ public class StartController implements WindowController {
     @Override
     public void startGame() {
 
-       // mainController.boardCreation
+
+        setBoard(makePiece(mainController.boardCreation.getBoard().length, mainController.boardCreation.getBoard()));
 
 
     }
 
+    private Group pawnGroup = new Group();
+
+    private Pane makePiece(int scale, Pawn[][] board) {
+        Pane pane = new Pane();
+        pane.setPrefSize(8 * 10.0 * PAWN_SIZE, 8 * 10.0 * PAWN_SIZE);
+        pane.getChildren().addAll(pawnGroup);
+        for (int i = 0; i < scale; i++) {
+            for (int j = 0; j < scale; j++) {
+
+                Pawn pawn = new Pawn(PawnColors.NONE, i, j);
+                board[i][j] = pawn;
+                pawnGroup.getChildren().add(pawn);
+
+                int finalI = i;
+                int finalJ = j;
+                pawn.setOnMouseClicked(event -> {
+                    mainController.attemptSetPawn(finalI, finalJ);
+
+
+                });
+
+            }
+        }
+
+
+        return pane;
+
+    }
 
 
     @Override

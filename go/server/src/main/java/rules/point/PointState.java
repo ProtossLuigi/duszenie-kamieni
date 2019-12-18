@@ -5,7 +5,7 @@ public enum PointState {
     BLACK,
     WHITE;
 
-    int toInt() {
+    public int toInt() {
         switch (this) {
             case EMPTY:
                 return 0;

@@ -52,6 +52,9 @@ public class GameState {
 
     public void setPointState(Point point, PointState pointState) {
         board.get(point.getX()).set(point.getY(), pointState);
+        playerBlack.pawnPlaced(point.getX(),point.getY(),pointState.toInt());
+        playerWhite.pawnPlaced(point.getX(),point.getY(),pointState.toInt());
+
     }
 
     public String MoveError(String code) {

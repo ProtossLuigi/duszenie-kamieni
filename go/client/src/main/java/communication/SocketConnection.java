@@ -40,20 +40,19 @@ public class SocketConnection implements ServerConnection {
     @Override
     public boolean connect(int destination) {
         try {
-            socket = new Socket("localhost",destination);
+            socket = new Socket("localhost", destination);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream());
             new Thread(this).start();
             return true;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             return false;
         }
     }
 
     @Override
     public void placeStone(int x, int y) {
-        messageInterpreter.placePawn(x,y);
+        messageInterpreter.placePawn(x, y);
     }
 
     @Override
@@ -63,6 +62,7 @@ public class SocketConnection implements ServerConnection {
 
     @Override
     public void sendMessage(String message) {
+        System.out.println(message);
         out.println(message);
     }
 
@@ -82,7 +82,7 @@ public class SocketConnection implements ServerConnection {
 
     @Override
     public void setPawn(int x, int y, int color) {
-        guiController.placePawn(x,y,color);
+        guiController.placePawn(x, y, color);
     }
 
     @Override
@@ -117,7 +117,8 @@ public class SocketConnection implements ServerConnection {
     }
 
     @Override
-    public void waitingForOpponent() { }
+    public void waitingForOpponent() {
+    }
 
     @Override
     public void run() {
@@ -127,8 +128,7 @@ public class SocketConnection implements ServerConnection {
             while (!Thread.currentThread().isInterrupted() && (message = in.readLine()) != null) {
                 messageInterpreter.getMessage(message);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         if (!thread.isInterrupted()) {
