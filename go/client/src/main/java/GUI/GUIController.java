@@ -13,4 +13,6 @@ public interface GUIController {
     void youWin();
     void youLose();
     void displayMessage(String message);
+    void startGame();
+    void waitingForOpponent();
 }

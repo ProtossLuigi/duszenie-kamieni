@@ -11,4 +11,6 @@ public interface ConnectedPlayer extends Runnable, Player {
     void attemptPlacePawn(int x,int y);
     void disconnect();
     void pass();
+    void startGame();
+    void waiting();
 }

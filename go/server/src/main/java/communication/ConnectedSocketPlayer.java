@@ -80,6 +80,16 @@ public class ConnectedSocketPlayer implements ConnectedPlayer {
     }
 
     @Override
+    public void startGame() {
+        messageInterpreter.startGame();
+    }
+
+    @Override
+    public void waiting() {
+        messageInterpreter.waiting();
+    }
+
+    @Override
     public void pawnPlaced(int x, int y, int color) {
         messageInterpreter.placePawn(x,y,color);
     }

@@ -9,4 +9,6 @@ public interface MessageInterpreter {
     void opponentTurn();
     void win();
     void lose();
+    void startGame();
+    void waiting();
 }

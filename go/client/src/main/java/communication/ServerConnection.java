@@ -18,4 +18,7 @@ public interface ServerConnection extends Runnable {
     void opponentTurn();
     void win();
     void loss();
+    void startGame();
+    void lfg(boolean pvp,int boardWidth,int boardHeight);
+    void waitingForOpponent();
 }

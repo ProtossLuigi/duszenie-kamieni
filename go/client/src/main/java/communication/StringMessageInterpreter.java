@@ -42,6 +42,12 @@ public class StringMessageInterpreter implements MessageInterpreter {
         if (message.equals("LOSS")) {
             serverConnection.loss();
         }
+        if (message.equals("GAME START")) {
+            serverConnection.startGame();
+        }
+        if (message.equals("WAITING")) {
+            serverConnection.waitingForOpponent();
+        }
     }
 
     @Override
@@ -57,5 +63,10 @@ public class StringMessageInterpreter implements MessageInterpreter {
     @Override
     public void disconnect() {
         serverConnection.sendMessage("DISCONNECT");
+    }
+
+    @Override
+    public void lfg(boolean pvp, int boardWidth, int boardHeight) {
+        serverConnection.sendMessage("LFG " + pvp + " " + boardWidth + " " + boardHeight);
     }
 }

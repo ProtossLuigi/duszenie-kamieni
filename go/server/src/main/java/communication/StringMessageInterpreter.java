@@ -1,5 +1,7 @@
 package communication;
 
+import main.GameParameters;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -7,6 +9,7 @@ public class StringMessageInterpreter implements MessageInterpreter {
 
     private ConnectedPlayer player;
     private Pattern pawnPattern = Pattern.compile("PAWN (\\d+) (\\d+)");
+    private Pattern lfgPattern = Pattern.compile("LFG (true|false) (\\d+) (\\d+)");
 
     public StringMessageInterpreter(ConnectedPlayer player){
         this.player = player;
@@ -19,6 +22,10 @@ public class StringMessageInterpreter implements MessageInterpreter {
         if (matcher.find()) {
             player.attemptPlacePawn(Integer.parseInt(matcher.group(1)),Integer.parseInt(matcher.group(2)));
             return;
+        }
+        matcher = lfgPattern.matcher(message);
+        if (matcher.find()) {
+            player.join(new GameParameters(Boolean.parseBoolean(matcher.group(1)),new int[]{Integer.parseInt(matcher.group(2)),Integer.parseInt(matcher.group(3))}));
         }
         if (message.equals("PASS")) {
             player.pass();
@@ -56,5 +63,15 @@ public class StringMessageInterpreter implements MessageInterpreter {
     @Override
     public void lose() {
         player.sendMessage("LOSS");
+    }
+
+    @Override
+    public void startGame() {
+        player.sendMessage("GAME START");
+    }
+
+    @Override
+    public void waiting() {
+        player.sendMessage("WAITING");
     }
 }

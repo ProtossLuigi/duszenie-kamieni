@@ -105,6 +105,20 @@ public class SocketConnection implements ServerConnection {
     }
 
     @Override
+    public void startGame() {
+        guiController.startGame();
+    }
+
+    @Override
+    public void lfg(boolean pvp, int boardWidth, int boardHeight) {
+        guiController.waitingForOpponent();
+        messageInterpreter.lfg(pvp, boardWidth, boardHeight);
+    }
+
+    @Override
+    public void waitingForOpponent() { }
+
+    @Override
     public void run() {
         thread = Thread.currentThread();
         try {
