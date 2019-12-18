@@ -13,6 +13,9 @@ public class Game {
 
 
     public Game(GameParameters parameters, Player[] players) {
+        for (Player player : players) {
+            player.setGame(this);
+        }
         Random random = new Random();
         boolean a = random.nextBoolean();
         boolean b = !a;
