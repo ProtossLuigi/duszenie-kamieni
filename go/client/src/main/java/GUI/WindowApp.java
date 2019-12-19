@@ -60,48 +60,6 @@ public class WindowApp {
 
     }
 
-    public Pane makeMeBoard(int scale) {
-        Pane pane = new Pane();
-
-        pane.setPrefSize(6 * 10.0 * PAWN_SIZE, 6 * 10.0 * PAWN_SIZE);
-        BoardCreation boardCreation = new BoardCreation();
-        boardCreation.setSizeBoard(scale, scale);
-
-
-        board = boardCreation.getBoard();
-        makePiece(pane, scale, board);
-
-
-        return pane;
-    }
-
-
-    private void makePiece(Pane pane, int scale, Pawn[][] board) {
-        pane.setPrefSize(8 * 10.0 * PAWN_SIZE, 8 * 10.0 * PAWN_SIZE);
-        pane.getChildren().addAll(pawnGroup);
-        for (int i = 0; i < scale; i++) {
-            for (int j = 0; j < scale; j++) {
-
-                Pawn pawn = new Pawn(PawnColors.NONE, i, j);
-                board[i][j] = pawn;
-                pawnGroup.getChildren().add(pawn);
-
-            }
-        }
-        for (Pawn[] p : board
-        ) {
-            for (Pawn pawn : p
-            ) {
-                pawn.setOnMouseClicked(event -> {
-
-                    //todo zamiast kolor funkcja który gracz teraz ma ruch
-                    pawn.drawPiece(pawn, Color.BLACK);
-                });
-            }
-
-        }
-
-    }
 
 
 }

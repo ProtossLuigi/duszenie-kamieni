@@ -2,6 +2,7 @@ package rules;
 
 import main.Player;
 import rules.board.GameState;
+import rules.board.GameStatus;
 import rules.point.Direction;
 import rules.point.Point;
 import rules.point.PointState;
@@ -251,7 +252,11 @@ public class Logic {
                 if (markedBoard.get(x).get(y) == PointState.EMPTY) {
                     Territory territory = getTerritory(new Point(x, y), null);
                     for (Point p : territory.points) {
-                        markedBoard.get(p.getX()).set(p.getY(), PointState.valueOf((territory.owner).toString()));
+                        OwnerTerritory territory1 = territory.owner;
+                        if (territory1 == OwnerTerritory.NEUTRAL) {
+                            territory1 = OwnerTerritory.EMPTY;
+                        }
+                        markedBoard.get(p.getX()).set(p.getY(), PointState.valueOf((territory1).toString()));
 
                     }
                 }
@@ -284,7 +289,7 @@ public class Logic {
                     p2++;
                 }
 
-                player.setScore(0, 0); // todo p1 p2
+                player.setScore(p1, p2);
 
                 if (p1 > p2) {
                     gameState.playerBlack.notifWin();
@@ -296,6 +301,8 @@ public class Logic {
                 }
             }
         }
+        //TODO tu ma nie pracować już
+        gameState.setStatus(GameStatus.ENDED);
     }
 
     void newGame(int width, int height, Player player1, Player player2) {

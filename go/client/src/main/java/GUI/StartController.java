@@ -24,7 +24,7 @@ public class StartController implements WindowController {
     @FXML
     private Button confirm;
     @FXML
-    private Button reset;
+    private Button pass;
     @FXML
     private Pane board;
 
@@ -36,7 +36,6 @@ public class StartController implements WindowController {
 
             board.getChildren().add(boardChild);
         });
-
 
 
     }
@@ -54,9 +53,9 @@ public class StartController implements WindowController {
     }
 
     @FXML
-    protected void handleReset(ActionEvent event) {
-        Window owner = layout.getScene().getWindow();
-        AlertHelper.showAlert(Alert.AlertType.INFORMATION, owner, "Reset", "Reset was clicked");
+    protected void handlePass(ActionEvent event) {
+        mainController.pass();
+
     }
 
     @Override
@@ -113,12 +112,13 @@ public class StartController implements WindowController {
     }
 
 
-
     private Pane makePiece(int scale, Pawn[][] board) {
 
         Group pawnGroup = new Group();
         Pane pane = new Pane();
-        pane.setPrefSize(8 * 10.0 * PAWN_SIZE, 8 * 10.0 * PAWN_SIZE);
+        Pawn.setPieceRadius((int) Math.floor(900 / scale));
+
+        pane.setPrefSize(1350, 900);
         pane.getChildren().addAll(pawnGroup);
         for (int i = 0; i < scale; i++) {
             for (int j = 0; j < scale; j++) {
@@ -149,8 +149,7 @@ public class StartController implements WindowController {
 //todo while nie ma dwoch graczy
         //if true, czekaj na przeciwnika
         // jesli nie odpal bota i startGame
-
-
+        displayMessage("Oczekiwanie na gracza");
         startGame();
 
 

@@ -41,6 +41,10 @@ public class GameState {
     public String moveError;
     public ArrayList<ArrayList<PointState>> previousBoard;
 
+    public void setStatus(GameStatus status) {
+        this.status = status;
+    }
+
     public PointState getPlayerColor() {
         if (current == playerBlack) {
             return PointState.BLACK;

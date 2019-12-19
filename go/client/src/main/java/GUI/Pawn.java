@@ -10,7 +10,7 @@ public class Pawn extends Circle implements PieceController {
 
     PawnColors type;
 
-    public static int PAWN_SIZE = 40;
+    public static int PAWN_SIZE;
 
 
     PawnColors getType() {
@@ -19,8 +19,10 @@ public class Pawn extends Circle implements PieceController {
 
     public Pawn(PawnColors type, int x, int y) {
         this.type = type;
-        setRadius(PAWN_SIZE);
-        relocate(x * (2 * PAWN_SIZE), y * (2 * PAWN_SIZE));
+        int myRadius = PAWN_SIZE/4;
+        setRadius(myRadius);
+
+        relocate(100+x * 3*myRadius, 100+ y * 3*myRadius);
         setStrokeWidth(0.2 * PAWN_SIZE);
 
         setStroke(Color.YELLOW);
@@ -48,8 +50,7 @@ public class Pawn extends Circle implements PieceController {
     }
 
 
-    @Override
-    public void setPieceRadius(int radius) {
+    public static void setPieceRadius(int radius) {
         PAWN_SIZE = radius;
     }
 
