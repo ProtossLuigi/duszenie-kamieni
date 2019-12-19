@@ -1,5 +1,6 @@
 package communication;
 
+import main.ConsoleWriter;
 import main.GameParameters;
 import matchmaking.GameRoom;
 import matchmaking.Lobby;
@@ -35,12 +36,15 @@ public class ConnectedSocketPlayer implements ConnectedPlayer {
     public void run() {
         try {
             String message;
+            //ConsoleWriter.println("running");
             while (!Thread.currentThread().isInterrupted() && (message = in.readLine()) != null) {
+                ConsoleWriter.println("IN: " + message);
                 messageInterpreter.getMessage(message);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //ConsoleWriter.println("closing");
         if (!Thread.currentThread().isInterrupted()) {
             disconnect();
         }
@@ -61,7 +65,7 @@ public class ConnectedSocketPlayer implements ConnectedPlayer {
     @Override
     public void sendMessage(String message) {
 
-        System.out.println(message);
+        ConsoleWriter.println("OUT: " + message);
         out.println(message);
     }
 

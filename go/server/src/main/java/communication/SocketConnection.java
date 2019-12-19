@@ -1,5 +1,7 @@
 package communication;
 
+import main.ConsoleWriter;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -21,7 +23,7 @@ public class SocketConnection implements ClientConnection {
     }
 
     public void listen() {
-        System.out.println("Server running on port " + socket.getLocalPort());
+        ConsoleWriter.println("Server running on port " + socket.getLocalPort());
         while (true) {
             try {
                 Socket newClient = socket.accept();

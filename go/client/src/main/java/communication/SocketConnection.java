@@ -42,7 +42,7 @@ public class SocketConnection implements ServerConnection {
         try {
             socket = new Socket("localhost", destination);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new PrintWriter(socket.getOutputStream());
+            out = new PrintWriter(socket.getOutputStream(),true);
             new Thread(this).start();
             return true;
         } catch (IOException e) {
