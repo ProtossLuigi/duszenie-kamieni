@@ -1,5 +1,6 @@
 package GUI;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -30,7 +31,13 @@ public class StartController implements WindowController {
     private JavaFXController mainController;
 
     public void setBoard(Pane boardChild) {
-        board.getChildren().add(boardChild);
+        Platform.runLater(() -> {
+
+
+            board.getChildren().add(boardChild);
+        });
+
+
 
     }
 
@@ -105,9 +112,11 @@ public class StartController implements WindowController {
 
     }
 
-    private Group pawnGroup = new Group();
+
 
     private Pane makePiece(int scale, Pawn[][] board) {
+
+        Group pawnGroup = new Group();
         Pane pane = new Pane();
         pane.setPrefSize(8 * 10.0 * PAWN_SIZE, 8 * 10.0 * PAWN_SIZE);
         pane.getChildren().addAll(pawnGroup);
