@@ -18,10 +18,12 @@ public class GameState {
                 board.get(i).add(PointState.EMPTY);
             }
         }
+        previousBoard = new ArrayList<>();
+        setPreviousBoard(getBoardCopy());
         this.playerBlack = playerBlack;
         this.playerWhite = playerWhite;
-        playerBlack.startGame(boardWidth,boardHeight,1);
-        playerWhite.startGame(boardWidth,boardHeight,2);
+        playerBlack.startGame(boardWidth, boardHeight, 1);
+        playerWhite.startGame(boardWidth, boardHeight, 2);
         if (status == null) {
             status = GameStatus.ACTIVE;
         }
@@ -37,6 +39,7 @@ public class GameState {
     public Player current;
     public GameStatus status;
     public String moveError;
+    public ArrayList<ArrayList<PointState>> previousBoard;
 
     public PointState getPlayerColor() {
         if (current == playerBlack) {
@@ -52,9 +55,23 @@ public class GameState {
 
     public void setPointState(Point point, PointState pointState) {
         board.get(point.getX()).set(point.getY(), pointState);
-        playerBlack.pawnPlaced(point.getX(),point.getY(),pointState.toInt());
-        playerWhite.pawnPlaced(point.getX(),point.getY(),pointState.toInt());
+        playerBlack.pawnPlaced(point.getX(), point.getY(), pointState.toInt());
+        playerWhite.pawnPlaced(point.getX(), point.getY(), pointState.toInt());
 
+    }
+
+    public boolean isUniqueBoard() {
+
+        for (int i = 0; i < boardHeight; i++) {
+
+            for (int j = 0; j < boardWidth; j++) {
+                if (board.get(i).get(j) != previousBoard.get(i).get(j)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     public String MoveError(String code) {
@@ -99,4 +116,7 @@ public class GameState {
     }
 
 
+    public void setPreviousBoard(ArrayList<ArrayList<PointState>> previousBoard) {
+        this.previousBoard = previousBoard;
+    }
 }
