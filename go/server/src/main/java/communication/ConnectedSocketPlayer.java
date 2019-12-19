@@ -123,6 +123,11 @@ public class ConnectedSocketPlayer implements ConnectedPlayer {
     }
 
     @Override
+    public void notifDraw() {
+        messageInterpreter.draw();
+    }
+
+    @Override
     public void sendChatMessage(String line) {
         messageInterpreter.sendChatMessage(line);
     }

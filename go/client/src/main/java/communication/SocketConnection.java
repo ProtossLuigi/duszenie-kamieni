@@ -106,6 +106,11 @@ public class SocketConnection implements ServerConnection {
     }
 
     @Override
+    public void draw() {
+        guiController.draw();
+    }
+
+    @Override
     public void startGame() {
         guiController.startGame();
     }

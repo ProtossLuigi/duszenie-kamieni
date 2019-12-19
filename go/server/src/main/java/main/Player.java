@@ -15,6 +15,7 @@ public interface Player {
     void setScore(int yourScore,int opponentScore);
 
     void notifLoss();
+    void notifDraw();
     void sendChatMessage(String line);
     void yourTurn();
     void opponentTurn();

@@ -77,6 +77,9 @@ public class OptionController implements WindowController {
     }
 
     @Override
+    public void draw() { }
+
+    @Override
     public void displayMessage(String message) {
 
     }

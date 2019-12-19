@@ -98,6 +98,11 @@ public class StartController implements WindowController {
     }
 
     @Override
+    public void draw() {
+        //TODO
+    }
+
+    @Override
     public void displayMessage(String message) {
         errorText.setText(message);
     }

@@ -66,6 +66,11 @@ public class StringMessageInterpreter implements MessageInterpreter {
     }
 
     @Override
+    public void draw() {
+        player.sendMessage("DRAW");
+    }
+
+    @Override
     public void startGame() {
         player.sendMessage("GAME START");
     }

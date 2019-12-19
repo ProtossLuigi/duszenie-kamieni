@@ -51,6 +51,11 @@ public class JavaFXController implements GUIController {
     }
 
     @Override
+    public void draw() {
+        currentWindowController.draw();
+    }
+
+    @Override
     public void displayMessage(String message) {
         currentWindowController.displayMessage(message);
     }

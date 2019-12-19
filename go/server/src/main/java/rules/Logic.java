@@ -307,9 +307,8 @@ public class Logic {
                     gameState.playerWhite.notifWin();
                 }
                 else if (p1 == p2) {
-                    //TODO tu remis
-                    //gameState.playerBlack.notifREMIS();
-                   // gameState.playerWhite.notifREMIS();
+                    gameState.playerBlack.notifDraw();
+                    gameState.playerWhite.notifDraw();
                 }
             }
         }

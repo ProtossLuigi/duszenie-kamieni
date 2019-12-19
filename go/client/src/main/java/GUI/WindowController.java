@@ -7,6 +7,7 @@ public interface WindowController {
     void opponentTurn();
     void youWin();
     void youLose();
+    void draw();
     void displayMessage(String message);
     void startGame();
     void waitingForOpponent();
