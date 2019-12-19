@@ -41,9 +41,7 @@ public class DefaultBot implements Player {
     public void notifLoss() { }
 
     @Override
-    public void notifDraw() {
-
-    }
+    public void notifDraw() { }
 
     @Override
     public void sendChatMessage(String line) { }
