@@ -99,7 +99,7 @@ public class StartController implements WindowController {
 
     @Override
     public void draw() {
-        //TODO
+        displayMessage("Remis");
     }
 
     @Override

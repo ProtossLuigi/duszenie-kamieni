@@ -40,6 +40,7 @@ public class WindowApp {
         Scene scene = new Scene(root);
         stage.setTitle("XD");
         stage.setScene(scene);
+        stage.setResizable(false);
 
 
 

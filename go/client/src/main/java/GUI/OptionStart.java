@@ -31,6 +31,7 @@ public class OptionStart extends Application {
         Scene scene = new Scene(root);
         stage.setTitle("Go");
         stage.setScene(scene);
+        stage.setResizable(false);
 
 
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
