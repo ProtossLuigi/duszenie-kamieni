@@ -88,7 +88,7 @@ public class OptionController implements WindowController {
 
     @Override
     public void waitingForOpponent() {
-        //todo zmiana z okienka opcji na gre (tryb oczekiwania
+
 
         Stage owner = (Stage) board9.getScene().getWindow();
         owner.close();

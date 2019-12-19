@@ -160,6 +160,7 @@ public class Logic {
 
 
     boolean isValidMove(Point point) {
+        PassBefore = false;
         if (gameState.getPointState(point) != PointState.EMPTY) {
             gameState.moveError = gameState.MoveError("OCCUPIED");
 
@@ -198,49 +199,54 @@ public class Logic {
     }
 
     MoveResult move(int x, int y, Player player) {
-        Point point = new Point(x, y);
 
-        if (player == gameState.current) {
-            ArrayList<Point> capturedPoints;
+        if (gameState.getStatus() == GameStatus.ACTIVE) {
+            Point point = new Point(x, y);
 
-            gameState.moveError = "";
+            if (player == gameState.current) {
+                ArrayList<Point> capturedPoints;
 
-            if (!isValidMove(point)) {
-                player.sendChatMessage(gameState.moveError);
+                gameState.moveError = "";
 
-                return null;
-            } else {
+                if (!isValidMove(point)) {
+                    player.sendChatMessage(gameState.moveError);
 
-                gameState.setPreviousBoard(gameState.getBoardCopy());
+                    return null;
+                } else {
 
-                gameState.setPointState(point, gameState.getPlayerColor());
+                    gameState.setPreviousBoard(gameState.getBoardCopy());
 
-                capturedPoints = getCapturedPoints(point);
+                    gameState.setPointState(point, gameState.getPlayerColor());
 
-                for (Point p :
-                        capturedPoints) {
-                    gameState.setPointState(p, PointState.EMPTY);
+                    capturedPoints = getCapturedPoints(point);
+
+                    for (Point p :
+                            capturedPoints) {
+                        gameState.setPointState(p, PointState.EMPTY);
+                    }
+                    swapAndNotifyPlayers(player);
+
+
+                    return new MoveResult(player, point, capturedPoints);
                 }
-                swapAndNotifyPlayers(player);
-
-
-                return new MoveResult(player, point, capturedPoints);
+            } else {
+                return null;
             }
-        } else {
-            return null;
         }
+        return null;
     }
 
     void pressPass(Player player) {
 
+        if (gameState.getStatus() == GameStatus.ACTIVE) {
+            if (PassBefore) {
+                setScores(player);
+            } else {
 
-        if (PassBefore) {
-            setScores(player);
-        } else {
+                PassBefore = !PassBefore;
 
-            PassBefore = !PassBefore;
-
-            swapAndNotifyPlayers(player);
+                swapAndNotifyPlayers(player);
+            }
         }
     }
 
@@ -269,8 +275,9 @@ public class Logic {
 
     void swapAndNotifyPlayers(Player player) {
         gameState.current = (player == gameState.playerBlack) ? gameState.playerWhite : gameState.playerBlack;
-        gameState.current.yourTurn();
         player.opponentTurn();
+        gameState.current.yourTurn();
+
     }
 
     void setScores(Player player) {
@@ -295,13 +302,18 @@ public class Logic {
                     gameState.playerBlack.notifWin();
                     gameState.playerWhite.notifLoss();
 
-                } else {
+                } else if ( p2< p1) {
                     gameState.playerBlack.notifLoss();
                     gameState.playerWhite.notifWin();
                 }
+                else if (p1 == p2) {
+                    //TODO tu remis
+                    //gameState.playerBlack.notifREMIS();
+                   // gameState.playerWhite.notifREMIS();
+                }
             }
         }
-        //TODO tu ma nie pracować już
+
         gameState.setStatus(GameStatus.ENDED);
     }
 

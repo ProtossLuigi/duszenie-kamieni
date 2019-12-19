@@ -146,9 +146,7 @@ public class StartController implements WindowController {
 
     @Override
     public void waitingForOpponent() {
-//todo while nie ma dwoch graczy
-        //if true, czekaj na przeciwnika
-        // jesli nie odpal bota i startGame
+
         displayMessage("Oczekiwanie na gracza");
         startGame();
 

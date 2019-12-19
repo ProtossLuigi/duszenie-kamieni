@@ -123,4 +123,8 @@ public class GameState {
     public void setPreviousBoard(ArrayList<ArrayList<PointState>> previousBoard) {
         this.previousBoard = previousBoard;
     }
+
+    public GameStatus getStatus() {
+        return status;
+    }
 }
