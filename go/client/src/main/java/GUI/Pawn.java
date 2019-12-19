@@ -22,7 +22,7 @@ public class Pawn extends Circle implements PieceController {
         setRadius(PAWN_SIZE);
         relocate(x * (2 * PAWN_SIZE), y * (2 * PAWN_SIZE));
         setStrokeWidth(0.2 * PAWN_SIZE);
-        setFill(Color.YELLOW);
+
         setStroke(Color.YELLOW);
 
         setColor(this, type);
@@ -34,7 +34,7 @@ public class Pawn extends Circle implements PieceController {
         switch (type) {
 
             case NONE:
-
+                setFill(Color.YELLOW);
                 break;
 
             case BLACK:

@@ -179,7 +179,9 @@ public class Logic {
             }
         } else if (getLibertyPoints(point, null, null).size() == 0) {
             gameState.moveError = gameState.MoveError("SUICIDE");
-            isValid = false;
+            gameState.setPointState(point, PointState.EMPTY);
+
+            return false;
         }
         gameState.setBoardCopy(backupBoard);
         return isValid;
@@ -195,20 +197,22 @@ public class Logic {
 
             if (!isValidMove(point)) {
                 player.sendChatMessage(gameState.moveError);
+
                 return null;
+            } else {
+                gameState.setPointState(point, gameState.getPlayerColor());
+
+                capturedPoints = getCapturedPoints(point);
+
+                for (Point p :
+                        capturedPoints) {
+                    gameState.setPointState(p, PointState.EMPTY);
+                }
+                swapAndNotifyPlayers(player);
+
+
+                return new MoveResult(player, point, capturedPoints);
             }
-            gameState.setPointState(point, gameState.getPlayerColor());
-
-            capturedPoints = getCapturedPoints(point);
-
-            for (Point p :
-                    capturedPoints) {
-                gameState.setPointState(p, PointState.EMPTY);
-            }
-            swapAndNotifyPlayers(player);
-
-
-            return new MoveResult(player, point, capturedPoints);
         } else {
             return null;
         }
