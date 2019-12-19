@@ -140,4 +140,12 @@ public class SocketConnection implements ServerConnection {
             disconnect();
         }
     }
+
+    public void setOut(PrintWriter out) {
+        this.out = out;
+    }
+
+    public void setIn(BufferedReader in) {
+        this.in = in;
+    }
 }
