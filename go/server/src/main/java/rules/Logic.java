@@ -16,6 +16,14 @@ public class Logic {
     boolean PassBefore = false;
 
 
+    Boolean isPointInBounds(Point point) {
+
+        return (
+                point.getX() >= 0 && point.getX() < gameState.boardWidth &&
+                        point.getY() >= 0 && point.getY() < gameState.boardHeight
+        );
+    }
+
     Territory getTerritory(Point point, Territory territory) {
 
         PointState pState = gameState.getPointState(point);
@@ -33,19 +41,21 @@ public class Logic {
         for (Direction side : Direction.values()
         ) {
             Point nPoint = point.getNeighbor(side);
-            PointState nState = gameState.getPointState(nPoint);
+            if (isPointInBounds(nPoint)) {
+                PointState nState = gameState.getPointState(nPoint);
 
-            if (nState == PointState.EMPTY) {
-                if (!nPoint.isInArray(territory.points)) {
-                    getTerritory(nPoint, territory);
-                }
-            } else if (territory.owner != OwnerTerritory.NEUTRAL) {
+                if (nState == PointState.EMPTY) {
+                    if (!nPoint.isInArray(territory.points)) {
+                        getTerritory(nPoint, territory);
+                    }
+                } else if (territory.owner != OwnerTerritory.NEUTRAL) {
 
-                if (territory.owner == OwnerTerritory.EMPTY) {
-                    territory.owner = OwnerTerritory.valueOf(nState.toString());
-                } else if (territory.owner != OwnerTerritory.valueOf(nState.toString())) {
-                    territory.owner = OwnerTerritory.NEUTRAL;
+                    if (territory.owner == OwnerTerritory.EMPTY) {
+                        territory.owner = OwnerTerritory.valueOf(nState.toString());
+                    } else if (territory.owner != OwnerTerritory.valueOf(nState.toString())) {
+                        territory.owner = OwnerTerritory.NEUTRAL;
 
+                    }
                 }
             }
         }
@@ -75,15 +85,16 @@ public class Logic {
         ) {
             Point nPoint = point.getNeighbor(side);
 
+            if (isPointInBounds(nPoint)) {
+                PointState nState = gameState.getPointState(nPoint);
 
-            PointState nState = gameState.getPointState(nPoint);
-
-            if (pState == nState) {
-                if (!nPoint.isInArray(chainPoints)) {
-                    getChainPoints(nPoint, chainPoints);
+                if (pState == nState) {
+                    if (!nPoint.isInArray(chainPoints)) {
+                        getChainPoints(nPoint, chainPoints);
+                    }
                 }
-            }
 
+            }
         }
         return chainPoints;
 
@@ -97,16 +108,18 @@ public class Logic {
                 Direction.values()
         ) {
             Point nPoint = point.getNeighbor(side);
-            PointState pState = gameState.getPointState(point);
-            PointState nState = gameState.getPointState(nPoint);
+            if (isPointInBounds(nPoint)) {
+                PointState pState = gameState.getPointState(point);
+                PointState nState = gameState.getPointState(nPoint);
 
-            if (nState != pState && nState != PointState.EMPTY) {
-                if (!nPoint.isInArray(capPoints) && getLibertyPoints(nPoint, null, null).size() == 0) {
-                    capPoints.addAll(getChainPoints(nPoint, null));
+                if (nState != pState && nState != PointState.EMPTY) {
+                    if (!nPoint.isInArray(capPoints) && getLibertyPoints(nPoint, null, null).size() == 0) {
+                        capPoints.addAll(getChainPoints(nPoint, null));
+                    }
+
                 }
 
             }
-
         }
 
         return capPoints;
@@ -123,19 +136,21 @@ public class Logic {
         for (Direction side :
                 Direction.values()) {
             Point nPoint = point.getNeighbor(side);
-            PointState pState = gameState.getPointState(point);
-            PointState nState = gameState.getPointState(nPoint);
-            if (pState == nState) {
-                chainPoints.add(point);
-                if (!nPoint.isInArray(chainPoints)) {
-                    getLibertyPoints(nPoint, chainPoints, libPoints);
+            if (isPointInBounds(nPoint)) {
+                PointState pState = gameState.getPointState(point);
+                PointState nState = gameState.getPointState(nPoint);
+                if (pState == nState) {
+                    chainPoints.add(point);
+                    if (!nPoint.isInArray(chainPoints)) {
+                        getLibertyPoints(nPoint, chainPoints, libPoints);
+                    }
+                } else if (nState == PointState.EMPTY) {
+                    if (!nPoint.isInArray(libPoints)) {
+                        libPoints.add(nPoint);
+                    }
                 }
-            } else if (nState == PointState.EMPTY) {
-                if (!nPoint.isInArray(libPoints)) {
-                    libPoints.add(nPoint);
-                }
-            }
 
+            }
         }
 
 
@@ -253,7 +268,7 @@ public class Logic {
                     p2++;
                 }
 
-                player.setScore(0,0); // todo p1 p2
+                player.setScore(0, 0); // todo p1 p2
 
                 if (p1 > p2) {
                     gameState.playerBlack.notifWin();

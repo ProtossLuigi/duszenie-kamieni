@@ -34,9 +34,7 @@ public class Game {
     }
 
     public void placePawn(Player player, int x, int y) {
-        if (logic.move(x, y, player)!=null){
-
-        }
+        logic.move(x, y, player);
 
 
     }
