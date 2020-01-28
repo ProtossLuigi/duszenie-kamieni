@@ -2,6 +2,8 @@ package matchmaking;
 
 import communication.ConnectedSocketPlayer;
 import communication.SocketConnection;
+import database.DatabaseAccess;
+import database.DatabaseAdapter;
 import main.GameParameters;
 import main.Player;
 import org.junit.Before;
@@ -24,6 +26,7 @@ public class LobbyTest {
 
     @Before
     public void setUp() throws Exception {
+        DatabaseAccess.databaseAdapter = mock(DatabaseAdapter.class);
         mockSocket = mock(Socket.class);
         when(mockSocket.getInputStream()).thenReturn(mock(InputStream.class));
         when(mockSocket.getOutputStream()).thenReturn(mock(OutputStream.class));

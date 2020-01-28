@@ -1,5 +1,6 @@
 package rules;
 
+import database.DatabaseAccess;
 import main.Player;
 import rules.board.GameState;
 import rules.board.GameStatus;
@@ -198,7 +199,7 @@ public class Logic {
         return isValid;
     }
 
-    MoveResult move(int x, int y, Player player) {
+    MoveResult move(int x, int y, Player player,int id) {
 
         if (gameState.getStatus() == GameStatus.ACTIVE) {
             Point point = new Point(x, y);
@@ -224,8 +225,21 @@ public class Logic {
                             capturedPoints) {
                         gameState.setPointState(p, PointState.EMPTY);
                     }
-                    swapAndNotifyPlayers(player);
 
+                    String playerName;
+                    switch (gameState.getPlayerColor()) {
+                        case BLACK:
+                            playerName = "black";
+                            break;
+                        case WHITE:
+                            playerName = "white";
+                            break;
+                        default:
+                            throw new IllegalStateException();
+                    }
+                    DatabaseAccess.databaseAdapter.move(id,playerName,x,y);
+
+                    swapAndNotifyPlayers(player);
 
                     return new MoveResult(player, point, capturedPoints);
                 }
@@ -236,11 +250,25 @@ public class Logic {
         return null;
     }
 
-    void pressPass(Player player) {
+    void pressPass(Player player,int id) {
 
         if (gameState.getStatus() == GameStatus.ACTIVE) {
+
+            String playerName;
+            switch (gameState.getPlayerColor()) {
+                case BLACK:
+                    playerName = "black";
+                    break;
+                case WHITE:
+                    playerName = "white";
+                    break;
+                default:
+                    throw new IllegalStateException();
+            }
+            DatabaseAccess.databaseAdapter.pass(id,playerName);
+
             if (PassBefore) {
-                setScores(player);
+                setScores(player,id);
             } else {
 
                 PassBefore = !PassBefore;
@@ -280,7 +308,7 @@ public class Logic {
 
     }
 
-    void setScores(Player player) {
+    void setScores(Player player,int id) {
         ArrayList<ArrayList<PointState>> markedBoard = getMarkedBoard();
         int p1 = 0;
         int p2 = 0;
@@ -301,14 +329,15 @@ public class Logic {
                 if (p1 > p2) {
                     gameState.playerBlack.notifWin();
                     gameState.playerWhite.notifLoss();
-
-                } else if ( p2< p1) {
+                    DatabaseAccess.databaseAdapter.finishGame(id,"black");
+                } else if (p1 < p2) {
                     gameState.playerBlack.notifLoss();
                     gameState.playerWhite.notifWin();
-                }
-                else if (p1 == p2) {
+                    DatabaseAccess.databaseAdapter.finishGame(id,"white");
+                } else {
                     gameState.playerBlack.notifDraw();
                     gameState.playerWhite.notifDraw();
+                    DatabaseAccess.databaseAdapter.finishGame(id,"draw");
                 }
             }
         }

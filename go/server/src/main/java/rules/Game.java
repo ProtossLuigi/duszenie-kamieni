@@ -1,5 +1,6 @@
 package rules;
 
+import database.DatabaseAccess;
 import main.GameParameters;
 import main.Player;
 import rules.board.GameState;
@@ -10,7 +11,7 @@ public class Game {
 
     private Player[] players;
     Logic logic;
-
+    private int id;
 
     public Game(GameParameters parameters, Player[] players) {
         for (Player player : players) {
@@ -20,7 +21,7 @@ public class Game {
         boolean a = random.nextBoolean();
         boolean b = !a;
         logic = new Logic();
-
+        id = DatabaseAccess.databaseAdapter.newGame();
         logic.newGame(parameters.boardSize[0], parameters.boardSize[1], players[a ? 1 : 0], players[b ? 1 : 0]);
     }
 
@@ -30,17 +31,18 @@ public class Game {
 
         temp.notifWin();
 
-
+        String playerName = temp == logic.gameState.playerBlack ? "black" : "white";
+        DatabaseAccess.databaseAdapter.finishGame(id,playerName);
     }
 
     public void placePawn(Player player, int x, int y) {
-        logic.move(x, y, player);
+        logic.move(x, y, player, id);
 
 
     }
 
     public void pass(Player player) {
-        logic.pressPass(player);
+        logic.pressPass(player,id);
 
     }
 }

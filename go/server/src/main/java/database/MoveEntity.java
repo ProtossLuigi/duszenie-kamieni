@@ -30,6 +30,24 @@ public class MoveEntity {
     @Column(name = "time")
     private Timestamp time;
 
+    public MoveEntity(){}
+
+    public MoveEntity(int game,String player,String type,int x,int y){
+        setGame(game);
+        setPlayer(player);
+        setType(type);
+        setX(x);
+        setY(y);
+        setTime(new Timestamp(System.currentTimeMillis()));
+    }
+
+    public MoveEntity(int game,String player,String type){
+        setGame(game);
+        setPlayer(player);
+        setType(type);
+        setTime(new Timestamp(System.currentTimeMillis()));
+    }
+
     public Integer getGame() {
         return game;
     }

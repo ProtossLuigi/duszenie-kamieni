@@ -2,6 +2,8 @@ package main;
 
 import communication.ClientConnection;
 import communication.SocketConnection;
+import database.DatabaseAccess;
+import database.HibernateMysqlDatabase;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,6 +16,7 @@ public class Main {
         }
         ClientConnection connection = new SocketConnection();
         connection.setupAccess(port);
+        DatabaseAccess.databaseAdapter = new HibernateMysqlDatabase();
         connection.listen();
     }
 }

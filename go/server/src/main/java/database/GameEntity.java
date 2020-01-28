@@ -18,6 +18,11 @@ public class GameEntity {
     @Column(name = "started")
     private Timestamp started;
 
+    public GameEntity(){
+        setStatus("unfinished");
+        setStarted(new Timestamp(System.currentTimeMillis()));
+    }
+
     public Timestamp getStarted() {
         return started;
     }

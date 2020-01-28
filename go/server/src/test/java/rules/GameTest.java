@@ -1,5 +1,7 @@
 package rules;
 
+import database.DatabaseAccess;
+import database.DatabaseAdapter;
 import main.GameParameters;
 import main.Player;
 import matchmaking.Lobby;
@@ -25,6 +27,7 @@ public class GameTest {
 
     @Before
     public void setUp() throws Exception {
+        DatabaseAccess.databaseAdapter = mock(DatabaseAdapter.class);
         players = new Player[2];
         players[0] = mock(Player.class);
         players[1] = mock(Player.class);
